@@ -43,7 +43,7 @@ Ensure you have the required permissions and Microsoft Intune access to apply co
 
 ### Configuration
 ## Android
-(https://github.com/RovxBot/Intune-ConfigAsCode/blob/main/Images/_50291bf9-05e9-4e71-a7c5-aa8872105617.jpeg)
+![Android](https://github.com/RovxBot/Intune-ConfigAsCode/blob/main/Images/_50291bf9-05e9-4e71-a7c5-aa8872105617.jpeg)
 - Minimum OS Version: 9.0
 - Maximum Failed Login Attempts: 5
 - Require Password: true
@@ -55,7 +55,7 @@ Ensure you have the required permissions and Microsoft Intune access to apply co
 - ...
 
 ## Windows
-(https://github.com/RovxBot/Intune-ConfigAsCode/blob/main/Images/_fc90c5ba-2cbf-4ce9-a629-1cede219a1ad.jpeg)
+![Windows](https://github.com/RovxBot/Intune-ConfigAsCode/blob/main/Images/_fc90c5ba-2cbf-4ce9-a629-1cede219a1ad.jpeg)
 - Minimum OS Version: 10.0
 - Require BitLocker: true
 - ...
