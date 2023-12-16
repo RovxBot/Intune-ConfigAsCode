@@ -32,8 +32,8 @@ This project aims to simplify the management of device compliance policies in Mi
 `Install-Module -Name Microsoft.Graph.Intune -Force -Scope CurrentUser`
 
 ## Connect to Microsoft Graph:
-```Import-Module Microsoft.Graph.Intune
-Connect-MSGraph```
+`Import-Module Microsoft.Graph.Intune` 
+`Connect-MSGraph`
 
 ## Run the Automation Script:
 ```.\ApplyCompliancePolicies.ps1 -AndroidConfig "AndroidComplianceConfig.yml" -MacOSConfig "MacOSComplianceConfig.yml" -WindowsConfig "WindowsComplianceConfig.yml" -iOSConfig "iOSComplianceConfig.yml"```
