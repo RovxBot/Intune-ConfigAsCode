@@ -1,0 +1,17 @@
+deviceConfiguration:
+  name: "Windows Networking Configuration"
+  platform: "windows"
+  settings:
+    - settingName: "Set DNS Servers"
+      dataType: "String"
+      value: "192.168.1.1, 8.8.8.8"
+    - settingName: "Disable Wi-Fi"
+      dataType: "Boolean"
+      value: false
+    - settingName: "Configure Proxy Settings"
+      dataType: "Boolean"
+      value: true
+      subSettings:
+        - subSettingName: "ProxyServer"
+          dataType: "String"
+          value: "http://proxy.example.com:8080"

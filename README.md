@@ -43,25 +43,25 @@ Ensure you have the required permissions and Microsoft Intune access to apply co
 
 ### Configuration
 ## Android
-Minimum OS Version: 9.0
-Maximum Failed Login Attempts: 5
-Require Password: true
-...
+- Minimum OS Version: 9.0
+- Maximum Failed Login Attempts: 5
+- Require Password: true
+- ...
 
 ## macOS
-Minimum OS Version: 10.14
-Require FileVault: true
-...
+- Minimum OS Version: 10.14
+- Require FileVault: true
+- ...
 
 ## Windows
-Minimum OS Version: 10.0
-Require BitLocker: true
-...
+- Minimum OS Version: 10.0
+- Require BitLocker: true
+- ...
 
 ## iOS
-Minimum OS Version: 12.0
-Require Passcode: true
-...
+- Minimum OS Version: 12.0
+- Require Passcode: true
+- ...
 
 ## Contributing
 Contributions are welcome! Please check the Contribution Guidelines for details on how to contribute to this project.

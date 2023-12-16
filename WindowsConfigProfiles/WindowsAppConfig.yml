@@ -1,0 +1,17 @@
+deviceConfiguration:
+  name: "Windows Application Configuration"
+  platform: "windows"
+  settings:
+    - settingName: "Install Office 365"
+      dataType: "Boolean"
+      value: true
+    - settingName: "Disable Unnecessary Apps"
+      dataType: "Boolean"
+      value: true
+      subSettings:
+        - subSettingName: "AppList"
+          dataType: "String"
+          value: "Cortana, Xbox"
+    - settingName: "Configure Default Browser"
+      dataType: "String"
+      value: "Microsoft Edge"

@@ -1,0 +1,16 @@
+deviceConfiguration:
+  name: "Windows Security Configuration"
+  platform: "windows"
+  settings:
+    - settingName: "Enforce BitLocker"
+      dataType: "Boolean"
+      value: true
+    - settingName: "Require Antivirus"
+      dataType: "Boolean"
+      value: true
+    - settingName: "Minimum Password Length"
+      dataType: "Integer"
+      value: 8
+    - settingName: "Password Expiration Days"
+      dataType: "Integer"
+      value: 90

@@ -1,0 +1,1 @@
+.\ApplyWindowsConfigurations.ps1 -WindowsSecurityConfig "WindowsSecurityConfig.yml" -WindowsNetworkingConfig "WindowsNetworkingConfig.yml" -WindowsAppConfig "WindowsAppConfig.yml"
