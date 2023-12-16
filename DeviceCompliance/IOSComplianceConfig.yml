@@ -1,0 +1,49 @@
+# iOSComplianceConfig.yml
+
+compliancePolicy:
+  Name: "iOS Compliance Policy"
+  Platform: "iOS"
+  Description: "Enforces compliance on iOS devices"
+  SettingCount: 7
+  MarkAsSupervised: false
+  SettingPrecedence: true
+
+complianceSettings:
+  - SettingName: "Minimum OS Version"
+    DataType: "String"
+    Operator: "GreaterThan"
+    Value: "12.0"
+
+  - SettingName: "Require Passcode"
+    DataType: "Boolean"
+    Operator: "Equals"
+    Value: true
+
+  - SettingName: "Minimum Passcode Length"
+    DataType: "Integer"
+    Operator: "GreaterThan"
+    Value: 6
+
+  - SettingName: "Passcode Expiration Days"
+    DataType: "Integer"
+    Operator: "GreaterThan"
+    Value: 7
+
+  - SettingName: "Maximum Failed Passcode Attempts"
+    DataType: "Integer"
+    Operator: "LessThan"
+    Value: 5
+
+  - SettingName: "Device Threat Level"
+    DataType: "String"
+    Operator: "Equals"
+    Value: "Low"
+
+  - SettingName: "Require Encrypted Backup"
+    DataType: "Boolean"
+    Operator: "Equals"
+    Value: true
+
+assignment:
+  Name: "iOS Compliance Assignment"
+  Platform: "iOS"
