@@ -1,1 +1,0 @@
-.\ApplyCompliancePolicies.ps1 -AndroidConfig "AndroidComplianceConfig.yml" -MacOSConfig "MacOSComplianceConfig.yml" -WindowsConfig "WindowsComplianceConfig.yml" -iOSConfig "iOSComplianceConfig.yml"

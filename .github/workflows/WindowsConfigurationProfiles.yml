@@ -1,0 +1,40 @@
+name: Apply Windows Configuration Profiles
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy_windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up PowerShell
+        uses: microsoft/setup-powershell@v1
+
+      - name: Determine Changed Files
+        id: determine_changes
+        run: |
+          $changes = git diff --name-only ${{ github.event.before }} ${{ github.sha }}
+          echo "::set-output name=changes::$changes"
+
+      - name: Execute PowerShell Script - Windows Security Configuration
+        if: contains(steps.determine_changes.outputs.changes, 'WindowsSecurityConfig.yml')
+        run: |
+          .\ApplyWindowsConfigurations.ps1 -WindowsSecurityConfig "WindowsSecurityConfig.yml"
+
+      - name: Execute PowerShell Script - Windows Networking Configuration
+        if: contains(steps.determine_changes.outputs.changes, 'WindowsNetworkingConfig.yml')
+        run: |
+          .\ApplyWindowsConfigurations.ps1 -WindowsNetworkingConfig "WindowsNetworkingConfig.yml"
+
+      - name: Execute PowerShell Script - Windows Application Configuration
+        if: contains(steps.determine_changes.outputs.changes, 'WindowsAppConfig.yml')
+        run: |
+          .\ApplyWindowsConfigurations.ps1 -WindowsAppConfig "WindowsAppConfig.yml"
+
+  # Add additional jobs for other platforms if needed

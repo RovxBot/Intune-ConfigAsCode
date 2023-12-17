@@ -1,72 +1,109 @@
-# Intune Compliance Policy Automation
+# 🚀 Intune Automation with GitHub Actions
 
 ![Intune Logo](https://github.com/RovxBot/Intune-ConfigAsCode/blob/main/Images/_a1fb46ba-043d-484e-beb7-d8edc7036886.jpeg)
 
-Automate the configuration of device compliance policies in Microsoft Intune using PowerShell and YAML configurations.
+Automate the configuration of device compliance policies and Windows configuration profiles in Microsoft Intune using GitHub Actions, PowerShell, and YAML configurations.
 
 ## Table of Contents
 
-- [Introduction](#introduction)
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-- [Configuration](#configuration)
-  - [Android](#android)
-  - [macOS](#macos)
-  - [Windows](#windows)
-  - [iOS](#ios)
-- [Contributing](#contributing)
-- [License](#license)
+- [👋 Introduction](#introduction)
+- [🚀 Getting Started](#getting-started)
+- [⚙️ GitHub Actions Workflow](#github-actions-workflow)
+- [🛠️ Configuration](#configuration)
+  - [📱 Device Compliance Policies](#device-compliance-policies)
+    - [Android](#android)
+    - [macOS](#macos)
+    - [Windows](#windows)
+    - [iOS](#ios)
+  - [💻 Windows Configuration Profiles](#windows-configuration-profiles)
+    - [Windows App](#windows-app)
+    - [Windows Network](#windows-network)
+    - [Windows Security](#windows-security)
+- [🤝 Contributing](#contributing)
+- [📄 License](#license)
 
-## Introduction
+## 👋 Introduction
 
-This project aims to simplify the management of device compliance policies in Microsoft Intune by providing PowerShell scripts and YAML configuration files. By using this automation, you can ensure that your devices meet the specified compliance requirements without manual intervention.
+This project aims to simplify the management of device compliance policies and Windows configuration profiles in Microsoft Intune using GitHub Actions. By using automation, you can ensure that your devices meet the specified compliance requirements and have the necessary configuration profiles without manual intervention.
 
-## Getting Started
+## 🚀 Getting Started
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/yourusername/Intune-Compliance-Automation.git
-   cd Intune-Compliance-Automation```
+   git clone https://github.com/RovxBot/Intune-ConfigAsCode.git
+   cd Intune-ConfigAsCode```
 
-## Install Required PowerShell Module:
-`Install-Module -Name Microsoft.Graph.Intune -Force -Scope CurrentUser`
+### ⚙️ GitHub Actions Workflow
 
-## Connect to Microsoft Graph:
-`Import-Module Microsoft.Graph.Intune` 
-`Connect-MSGraph`
+This project leverages GitHub Actions workflows for automated deployment. The workflow is triggered on each push to the main branch.
 
-## Run the Automation Script:
-```.\ApplyCompliancePolicies.ps1 -AndroidConfig "AndroidComplianceConfig.yml" -MacOSConfig "MacOSComplianceConfig.yml" -WindowsConfig "WindowsComplianceConfig.yml" -iOSConfig "iOSComplianceConfig.yml"```
+## 🛠️ Configuration
 
-### Usage
-Ensure you have the required permissions and Microsoft Intune access to apply compliance policies. Customize the YAML configuration files to match your organization's compliance requirements.
+### 📱 Device Compliance Policies
 
-### Configuration
-## Android
+#### Android
 ![Android](https://github.com/RovxBot/Intune-ConfigAsCode/blob/main/Images/_50291bf9-05e9-4e71-a7c5-aa8872105617.jpeg)
-- Minimum OS Version: 9.0
-- Maximum Failed Login Attempts: 5
-- Require Password: true
-- ...
+- Minimum OS Version: GreaterThan 9.0
+- Maximum Failed Login Attempts: LessThan 5
+- Require Password: Equals true
+- Password Expiration Days: GreaterThan 0
+- Password Minimum Length: GreaterThan 8
+- Require Encryption: Equals true
+- Device Threat Level: Equals "Low"
+- Device Health Attestation State: Equals "Healthy"
+- Require Approved System Apps: Equals true
+- Minimum Security Patch Level: GreaterThan "2021-01-01"
 
-## macOS
-- Minimum OS Version: 10.14
-- Require FileVault: true
-- ...
+#### macOS
+- Minimum OS Version: GreaterThan 10.14
+- Require FileVault: Equals true
+- Require Firewall: Equals true
+- Require Antivirus: Equals true
+- Minimum Free Disk Space (GB): GreaterThan 10
+- Require Strong Password: Equals true
+- Maximum Inactivity Time (minutes): LessThan 30
 
-## Windows
+#### Windows
 ![Windows](https://github.com/RovxBot/Intune-ConfigAsCode/blob/main/Images/_fc90c5ba-2cbf-4ce9-a629-1cede219a1ad.jpeg)
-- Minimum OS Version: 10.0
-- Require BitLocker: true
-- ...
+- Minimum OS Version: GreaterThan 10.0
+- Require BitLocker: Equals true
+- Require Antivirus: Equals true
+- Minimum Free Disk Space (GB): GreaterThan 20
+- Minimum Memory (MB): GreaterThan 4096
+- Maximum Inactivity Time (minutes): LessThan 15
+- Minimum CPU Speed (MHz): GreaterThan 2000
+- Require Strong Password: Equals true
+- Require Firewall: Equals true
 
-## iOS
-- Minimum OS Version: 12.0
-- Require Passcode: true
-- ...
+#### iOS
+- Minimum OS Version: GreaterThan 12.0
+- Require Passcode: Equals true
+- Minimum Passcode Length: GreaterThan 6
+- Passcode Expiration Days: GreaterThan 7
+- Maximum Failed Passcode Attempts: LessThan 5
+- Device Threat Level: Equals "Low"
+- Require Encrypted Backup: Equals true
 
-## Contributing
+### 💻 Windows Configuration Profiles
+
+#### Windows App
+- Install Office 365:
+- Disable Unnecessary Apps: Cortana, Xbox
+- Configure Default Browser: Microsoft Edge
+
+#### Windows Network
+- Set DNS Servers: 192.168.1.1, 8.8.8.8
+- Enable Wi-Fi
+- Configure Proxy Settings: "http://proxy.example.com:8080"
+
+#### Windows Security
+- Enforce BitLocker:
+- Require Antivirus:
+- Minimum Password Length: 8
+- Password Expiration Days: 90
+
+## 🤝 Contributing
 Contributions are welcome! Please check the Contribution Guidelines for details on how to contribute to this project.
 
-## License
+## 📄 License
 This project is licensed under the MIT License.
