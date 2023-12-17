@@ -1,7 +1,8 @@
 param (
-    [string]$WindowsAppConfigFile = "WindowsAppConfig.yml",
-    [string]$WindowsNetworkConfigFile = "WindowsNetworkConfig.yml",
-    [string]$WindowsSecurityConfigFile = "WindowsSecurityConfig.yml"
+    [string]$WindowsAppConfigFile = "WindowsConfigProfiles\WindowsAppConfig.yml",
+    [string]$WindowsNetworkConfigFile = "WindowsConfigProfiles\WindowsNetworkConfig.yml",
+    [string]$WindowsSecurityConfigFile = "WindowsConfigProfiles\WindowsSecurityConfig.yml",
+    [string]$OneDriveSigninAndSyncFile = "WindowsConfigProfiles\OneDriveSigninAndSync.yml"
 )
 
 # Replace the following placeholders with actual values
@@ -65,3 +66,6 @@ Apply-ConfigurationPolicies -ConfigPath $WindowsNetworkConfigFile -PolicyType "W
 
 # Apply Windows Security Configuration Policies
 Apply-ConfigurationPolicies -ConfigPath $WindowsSecurityConfigFile -PolicyType "Windows Security"
+
+# Apply OneDrive Configuration Policy
+Apply-ConfigurationPolicies -ConfigPath $OneDriveSigninAndSyncFile -PolicyType "OneDrive Policy"

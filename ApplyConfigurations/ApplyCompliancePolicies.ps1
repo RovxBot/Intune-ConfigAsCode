@@ -1,8 +1,8 @@
 param (
-    [string]$AndroidConfigFile = "AndroidComplianceConfig.yml",
-    [string]$IOSConfigFile = "IOSComplianceConfig.yml",
-    [string]$MacOSConfigFile = "MacOSComplianceConfig.yml",
-    [string]$WindowsConfigFile = "WindowsComplianceConfig.yml"
+    [string]$AndroidConfigFile = "DeviceCompliance\AndroidComplianceConfig.yml",
+    [string]$IOSConfigFile = "DeviceCompliance\IOSComplianceConfig.yml",
+    [string]$MacOSConfigFile = "DeviceCompliance\MacOSComplianceConfig.yml",
+    [string]$WindowsConfigFile = "DeviceCompliance\WindowsComplianceConfig.yml"
 )
 
 # Replace the following placeholders with actual values
