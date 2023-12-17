@@ -23,19 +23,19 @@ jobs:
           echo "::set-output name=changes::$changes"
 
       - name: Execute PowerShell Script - Apply Android Compliance
-        if: contains(steps.determine_changes.outputs.changes, 'AndroidComplianceConfig.yml')
+        if: contains(steps.determine_changes.outputs.changes, 'DeviceCompliance\AndroidComplianceConfig.yml')
         run: |
-          .\ApplyCompliancePolicies.ps1 -ComplianceConfig "AndroidComplianceConfig.yml"
+          .\ApplyCompliancePolicies.ps1 -ComplianceConfig "DeviceCompliance\AndroidComplianceConfig.yml"
 
       - name: Execute PowerShell Script - Apply IOS Compliance
-        if: contains(steps.determine_changes.outputs.changes, 'IOSComplianceConfig.yml')
+        if: contains(steps.determine_changes.outputs.changes, 'DeviceCompliance\IOSComplianceConfig.yml')
         run: |
-          .\ApplyCompliancePolicies.ps1 -ComplianceConfig "IOSomplianceConfig.yml"
+          .\ApplyCompliancePolicies.ps1 -ComplianceConfig "DeviceCompliance\IOSomplianceConfig.yml"
 
       - name: Execute PowerShell Script - Apply Android Compliance
-        if: contains(steps.determine_changes.outputs.changes, 'MacOSComplianceConfig.yml')
+        if: contains(steps.determine_changes.outputs.changes, 'DeviceCompliance\MacOSComplianceConfig.yml')
         run: |
-          .\ApplyCompliancePolicies.ps1 -ComplianceConfig "MacOSComplianceConfig.yml"
+          .\ApplyCompliancePolicies.ps1 -ComplianceConfig "DeviceCompliance\MacOSComplianceConfig.yml"
 
       - name: Execute PowerShell Script - Apply Android Compliance
         if: contains(steps.determine_changes.outputs.changes, 'WindowsComplianceConfig.yml')
