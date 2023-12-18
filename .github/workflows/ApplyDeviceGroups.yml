@@ -1,0 +1,35 @@
+name: Apply Device Groups and Categories
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy_compliance:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up PowerShell
+        uses: microsoft/setup-powershell@v1
+        with:
+          pwsh-version: '7.x'  # Replace with the desired PowerShell version
+
+      - name: Determine Changed Files
+        id: determine_changes
+        run: |
+          $changes = git diff --name-only ${{ github.event.before }} ${{ github.sha }}
+          echo "::set-output name=changes::$changes"
+
+      - name: Execute PowerShell Script - Apply Device Groups
+        if: contains(steps.determine_changes.outputs.changes, 'DeviceGroups\DynamicDeviceGroups.json')
+        run: |
+          .\ApplyDeviceGroupsAndCategories.ps1 -ComplianceConfig "DeviceGroups\DynamicDeviceGroups.json"
+
+      - name: Execute PowerShell Script - Apply Device Categories
+        if: contains(steps.determine_changes.outputs.changes, 'DeviceGroups\DeviceCatgegories.json')
+        run: |
+          .\ApplyCompliancePolicies.ps1 -ComplianceConfig "DeviceGroups\DeviceCategories.json"
