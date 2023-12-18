@@ -1,71 +1,33 @@
 param (
-    [string]$WindowsAppConfigFile = "WindowsConfigProfiles\WindowsAppConfig.yml",
-    [string]$WindowsNetworkConfigFile = "WindowsConfigProfiles\WindowsNetworkConfig.yml",
-    [string]$WindowsSecurityConfigFile = "WindowsConfigProfiles\WindowsSecurityConfig.yml",
-    [string]$OneDriveSigninAndSyncFile = "WindowsConfigProfiles\OneDriveSigninAndSync.yml"
+    [string]$ApplicationConfigFile = "WindowsConfigProfiles\ApplicationConfig.json",
+    [string]$OneDriveConfigFile = "WindowsConfigProfiles\OneDriveConfig.json"
 )
 
-# Replace the following placeholders with actual values
-$intuneAppId = "your-intune-app-id"
-$intuneTenantId = "your-intune-tenant-id"
-$intuneSecret = "your-intune-secret"
-$intuneDeviceManagementId = "your-device-management-id"
-
-# Function to authenticate with Microsoft Graph
-function Connect-Intune {
-    $body = @{
-        grant_type    = "client_credentials"
-        client_id     = $intuneAppId
-        client_secret = $intuneSecret
-        resource      = "https://graph.microsoft.com"
-    }
-
-    $tokenEndpoint = "https://login.microsoftonline.com/$intuneTenantId/oauth2/token"
-    $tokenResponse = Invoke-RestMethod -Uri $tokenEndpoint -Method Post -Body $body
-
-    $headers = @{
-        Authorization = "Bearer $($tokenResponse.access_token)"
-    }
-
-    $headers
-}
-
-# Function to apply Configuration Policies in Intune
-function Apply-ConfigurationPolicies {
+# Function to deploy Windows Configuration Profiles in Intune
+function Deploy-WindowsConfigurations {
     param (
         [string]$ConfigPath,
-        [string]$PolicyType
+        [string]$ProfileType
     )
 
-    # Read YAML file
-    $config = Get-Content $ConfigPath | ConvertFrom-Yaml
+    # Read JSON file
+    $config = Get-Content $ConfigPath | ConvertFrom-Json
 
-    # Define the API endpoint for configuration policies in Intune
-    $intuneApiEndpoint = "https://graph.microsoft.com/v1.0/deviceManagement/managedDevice/deviceConfiguration"
+    # Define the API endpoint for Windows Configuration Profiles in Intune
+    $intuneApiEndpoint = "https://graph.microsoft.com/v1.0/deviceManagement/deviceConfigurations"
 
-    # Iterate through configuration settings and send them to Intune
-    foreach ($setting in $config.deviceConfiguration.settings) {
-        $body = @{
-            settingName = $setting.settingName
-            value       = $setting.value
-        }
-
-        # Send the configuration to Intune
-        Invoke-RestMethod -Uri $intuneApiEndpoint -Method Post -Headers (Connect-Intune) -Body ($body | ConvertTo-Json)
-        Write-Output "$PolicyType setting $($setting.settingName) applied."
-    }
-
-    Write-Output "Intune $PolicyType Configuration Policies applied."
+    # Deploy Windows Configuration Profile
+    Invoke-RestMethod -Uri $intuneApiEndpoint -Method Post -Headers (Connect-Intune) -Body ($config.deviceConfiguration | ConvertTo-Json)
+    Write-Output "Windows Configuration Profile deployed for $ProfileType."
 }
 
-# Apply Windows App Configuration Policies
-Apply-ConfigurationPolicies -ConfigPath $WindowsAppConfigFile -PolicyType "Windows App"
+# Deploy Windows Configuration Profiles only if changes detected
+if ($env:GITHUB_EVENT_NAME -eq 'push') {
+    if (git diff --name-only $env:GITHUB_SHA^..$env:GITHUB_SHA -Intersect $ApplicationConfigFile, $OneDriveConfigFile) {
+        # Deploy Application Configuration Profile
+        Deploy-WindowsConfigurations -ConfigPath $ApplicationConfigFile -ProfileType "Application Configuration"
 
-# Apply Windows Network Configuration Policies
-Apply-ConfigurationPolicies -ConfigPath $WindowsNetworkConfigFile -PolicyType "Windows Network"
-
-# Apply Windows Security Configuration Policies
-Apply-ConfigurationPolicies -ConfigPath $WindowsSecurityConfigFile -PolicyType "Windows Security"
-
-# Apply OneDrive Configuration Policy
-Apply-ConfigurationPolicies -ConfigPath $OneDriveSigninAndSyncFile -PolicyType "OneDrive Policy"
+        # Deploy OneDrive Configuration Profile
+        Deploy-WindowsConfigurations -ConfigPath $OneDriveConfigFile -ProfileType "OneDrive"
+    }
+}

@@ -1,7 +1,0 @@
-dynamicDeviceGroups:
-  - displayName: "Laptops Group"
-    membershipRule: "device.deviceCategory -eq 'Laptops'"
-  - displayName: "Desktops Group"
-    membershipRule: "device.deviceCategory -eq 'Desktops'"
-  - displayName: "Mobile Phones Group"
-    membershipRule: "device.deviceCategory -eq 'Mobile Phones'"
