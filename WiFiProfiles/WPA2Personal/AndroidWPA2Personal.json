@@ -1,0 +1,16 @@
+{
+  "@odata.type": "#microsoft.graph.androidForWorkWiFiConfiguration",
+  "displayName": "Android WiFi Profile",
+  "identityCertificate": {
+    "keyType": "useIdentityCertificate"
+  },
+  "ssid": "YourWiFiSSID",
+  "preSharedKey": "YourWiFiPassword",
+  "eapType": "peap",
+  "innerEapSettings": {
+    "eapType": "mschapv2",
+    "username": "YourUsername",
+    "password": "YourPassword"
+  },
+  "authenticationMethod": "eapTls"
+}

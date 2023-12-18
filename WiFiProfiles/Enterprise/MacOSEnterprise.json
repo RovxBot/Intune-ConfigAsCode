@@ -1,0 +1,11 @@
+{
+    "@odata.type": "#microsoft.graph.macOSWifiConfiguration",
+    "displayName": "MacOS WiFi Profile",
+    "ssid": "YourWiFiSSID",
+    "isHidden": false,
+    "encryptionType": "WPA2",
+    "authenticationMethod": "WPA",
+    "password": "YourWiFiPassword",
+    "username": "UseLoggedUserCredentials"
+  }
+  

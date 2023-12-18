@@ -25,21 +25,21 @@ jobs:
           echo "::set-output name=changes::$changes"
 
       - name: Execute PowerShell Script - Apply Android Compliance
-        if: contains(steps.determine_changes.outputs.changes, 'DeviceCompliance\AndroidComplianceConfig.yml')
+        if: contains(steps.determine_changes.outputs.changes, 'DeviceCompliance\AndroidComplianceConfig.json')
         run: |
-          .\ApplyCompliancePolicies.ps1 -ComplianceConfig "DeviceCompliance\AndroidComplianceConfig.yml"
+          .\ApplyCompliancePolicies.ps1 -ComplianceConfig "DeviceCompliance\AndroidComplianceConfig.json"
 
       - name: Execute PowerShell Script - Apply iOS Compliance
-        if: contains(steps.determine_changes.outputs.changes, 'DeviceCompliance\IOSComplianceConfig.yml')
+        if: contains(steps.determine_changes.outputs.changes, 'DeviceCompliance\IOSComplianceConfig.json')
         run: |
-          .\ApplyCompliancePolicies.ps1 -ComplianceConfig "DeviceCompliance\IOSComplianceConfig.yml"
+          .\ApplyCompliancePolicies.ps1 -ComplianceConfig "DeviceCompliance\IOSComplianceConfig.json"
 
       - name: Execute PowerShell Script - Apply macOS Compliance
-        if: contains(steps.determine_changes.outputs.changes, 'DeviceCompliance\MacOSComplianceConfig.yml')
+        if: contains(steps.determine_changes.outputs.changes, 'DeviceCompliance\MacOSComplianceConfig.json')
         run: |
-          .\ApplyCompliancePolicies.ps1 -ComplianceConfig "DeviceCompliance\MacOSComplianceConfig.yml"
+          .\ApplyCompliancePolicies.ps1 -ComplianceConfig "DeviceCompliance\MacOSComplianceConfig.json"
 
       - name: Execute PowerShell Script - Apply Windows Compliance
-        if: contains(steps.determine_changes.outputs.changes, 'DeviceCompliance\WindowsComplianceConfig.yml')
+        if: contains(steps.determine_changes.outputs.changes, 'DeviceCompliance\WindowsComplianceConfig.json')
         run: |
-          .\ApplyCompliancePolicies.ps1 -ComplianceConfig "DeviceCompliance\WindowsComplianceConfig.yml"
+          .\ApplyCompliancePolicies.ps1 -ComplianceConfig "DeviceCompliance\WindowsComplianceConfig.json"

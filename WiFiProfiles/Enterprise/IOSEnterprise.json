@@ -1,0 +1,12 @@
+{
+    "@odata.type": "#microsoft.graph.iosWifiConfiguration",
+    "displayName": "iOS WiFi Profile",
+    "ssid": "YourWiFiSSID",
+    "isHidden": false,
+    "encryptionType": "WPA2",
+    "authenticationMethod": "WPA",
+    "password": "YourWiFiPassword",
+    "username": "UseLoggedUserCredentials",
+    "promptForCredentials": true
+  }
+  

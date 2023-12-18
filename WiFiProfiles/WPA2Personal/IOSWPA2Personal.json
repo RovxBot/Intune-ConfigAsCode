@@ -1,0 +1,16 @@
+{
+    "@odata.type": "#microsoft.graph.iosWifiConfiguration",
+    "displayName": "iOS WiFi Profile",
+    "ssid": "YourWiFiSSID",
+    "isHidden": false,
+    "encryptionType": "WPA2",
+    "password": "YourWiFiPassword",
+    "username": "YourUsername",
+    "eapType": "PEAP",
+    "innerEapSettings": {
+      "eapType": "MSCHAPv2",
+      "username": "YourUsername",
+      "password": "YourPassword"
+    }
+  }
+  

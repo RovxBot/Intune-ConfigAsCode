@@ -1,0 +1,13 @@
+{
+    "@odata.type": "#microsoft.graph.windowsWifiConfiguration",
+    "displayName": "Windows WiFi Profile",
+    "connectAutomatically": true,
+    "ssid": "YourWiFiSSID",
+    "authenticationMethod": "user",
+    "eapType": "peap",
+    "innerEapSettings": {
+      "eapType": "mschapv2",
+      "useLoggedInUserCredentials": true
+    }
+  }
+  
