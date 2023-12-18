@@ -1,0 +1,21 @@
+{
+  "autopilotProfiles": [
+    {
+      "name": "Basic User-Driven Autopilot Profile",
+      "description": "Basic User-Driven Autopilot profile for device deployment",
+      "assignmentStatus": "Assigned",
+      "enrollmentStatus": "Enrolled",
+      "deploymentMode": "User-Driven",
+      "outOfBoxExperienceSettings": {
+        "language": "en-US",
+        "keyboard": "0409:00000409",
+        "timeZone": "Australia/Adelaide"
+      },
+      "userTokenSettings": {
+        "autoPilotProfileUser": "User@contoso.com"
+      },
+      "deviceNameTemplate": "<SerialNumber>",
+      "priority": 0
+    }
+  ]
+}

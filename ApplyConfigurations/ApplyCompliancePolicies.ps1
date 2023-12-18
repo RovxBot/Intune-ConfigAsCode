@@ -5,31 +5,6 @@ param (
     [string]$WindowsConfigFile = "DeviceCompliance\WindowsComplianceConfig.yml"
 )
 
-# Replace the following placeholders with actual values
-$intuneAppId = "your-intune-app-id"
-$intuneTenantId = "your-intune-tenant-id"
-$intuneSecret = "your-intune-secret"
-$intuneDeviceManagementId = "your-device-management-id"
-
-# Function to authenticate with Microsoft Graph
-function Connect-Intune {
-    $body = @{
-        grant_type    = "client_credentials"
-        client_id     = $intuneAppId
-        client_secret = $intuneSecret
-        resource      = "https://graph.microsoft.com"
-    }
-
-    $tokenEndpoint = "https://login.microsoftonline.com/$intuneTenantId/oauth2/token"
-    $tokenResponse = Invoke-RestMethod -Uri $tokenEndpoint -Method Post -Body $body
-
-    $headers = @{
-        Authorization = "Bearer $($tokenResponse.access_token)"
-    }
-
-    $headers
-}
-
 # Function to apply Compliance Policies in Intune
 function Apply-CompliancePolicies {
     param (
@@ -58,14 +33,19 @@ function Apply-CompliancePolicies {
     Write-Output "Intune Compliance Policies applied for $Platform."
 }
 
-# Apply Compliance Policies for Android
-Apply-CompliancePolicies -ConfigPath $AndroidConfigFile -Platform "Android"
+# Apply Compliance Policies only if changes detected
+if ($env:GITHUB_EVENT_NAME -eq 'push') {
+    if (git diff --name-only $env:GITHUB_SHA^..$env:GITHUB_SHA -Intersect $AndroidConfigFile, $IOSConfigFile, $MacOSConfigFile, $WindowsConfigFile) {
+        # Apply Compliance Policies for Android
+        Apply-CompliancePolicies -ConfigPath $AndroidConfigFile -Platform "Android"
 
-# Apply Compliance Policies for iOS
-Apply-CompliancePolicies -ConfigPath $IOSConfigFile -Platform "iOS"
+        # Apply Compliance Policies for iOS
+        Apply-CompliancePolicies -ConfigPath $IOSConfigFile -Platform "iOS"
 
-# Apply Compliance Policies for macOS
-Apply-CompliancePolicies -ConfigPath $MacOSConfigFile -Platform "macOS"
+        # Apply Compliance Policies for macOS
+        Apply-CompliancePolicies -ConfigPath $MacOSConfigFile -Platform "macOS"
 
-# Apply Compliance Policies for Windows
-Apply-CompliancePolicies -ConfigPath $WindowsConfigFile -Platform "Windows"
+        # Apply Compliance Policies for Windows
+        Apply-CompliancePolicies -ConfigPath $WindowsConfigFile -Platform "Windows"
+    }
+}

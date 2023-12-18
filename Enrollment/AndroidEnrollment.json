@@ -1,0 +1,19 @@
+{
+  "autopilotProfiles": [
+    {
+      "name": "Company-Owned Android Autopilot Profile",
+      "description": "Autopilot profile for company-owned Android devices",
+      "assignmentStatus": "Assigned",
+      "enrollmentStatus": "Enrolled",
+      "deploymentMode": "System-Driven",
+      "outOfBoxExperienceSettings": {
+        "language": "en-US",
+        "keyboard": "0409:00000409",
+        "timeZone": "Australia/Adelaide"
+      },
+      "userTokenSettings": {},
+      "deviceNameTemplate": "<SerialNumber>",
+      "priority": 0
+    }
+  ]
+}

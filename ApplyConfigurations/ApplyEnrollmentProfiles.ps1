@@ -1,57 +1,35 @@
 param (
-    [string]$AutopilotConfigFile = "Enrollment\StandardAutopilot.yml"
+    [string]$UserDrivenConfigFile = "Enrollment\UserDrivenAutopilotConfig.yml",
+    [string]$CompanyOwnedMacOSConfigFile = "Enrollment\CompanyOwnedMacOSAutopilotConfig.yml",
+    [string]$CompanyOwnedAndroidConfigFile = "Enrollment\CompanyOwnedAndroidAutopilotConfig.yml",
+    [string]$CompanyOwnedIOSConfigFile = "Enrollment\CompanyOwnedIOSAutopilotConfig.yml"
 )
 
-# Replace the following placeholders with actual values
-$intuneAppId = "your-intune-app-id"
-$intuneTenantId = "your-intune-tenant-id"
-$intuneSecret = "your-intune-secret"
-
-# Function to authenticate with Microsoft Graph
-function Connect-Intune {
-    $body = @{
-        grant_type    = "client_credentials"
-        client_id     = $intuneAppId
-        client_secret = $intuneSecret
-        resource      = "https://graph.microsoft.com"
-    }
-
-    $tokenEndpoint = "https://login.microsoftonline.com/$intuneTenantId/oauth2/token"
-    $tokenResponse = Invoke-RestMethod -Uri $tokenEndpoint -Method Post -Body $body
-
-    $headers = @{
-        Authorization = "Bearer $($tokenResponse.access_token)"
-    }
-
-    $headers
-}
-
-# Function to apply Autopilot Profiles in Intune
-function Apply-AutopilotProfiles {
+# Function to apply Enrollment Profiles in Intune
+function Apply-EnrollmentProfiles {
     param (
-        [string]$ConfigPath
+        [string]$ConfigPath,
+        [string]$ProfileType
     )
 
     # Read YAML file
     $config = Get-Content $ConfigPath | ConvertFrom-Yaml
 
     # Define the API endpoint for Autopilot profiles in Intune
-    $intuneApiEndpoint = "https://graph.microsoft.com/v1.0/deviceManagement/importedWindowsAutopilotDeviceIdentities"
+    $intuneApiEndpoint = "https://graph.microsoft.com/v1.0/deviceManagement/autopilotProfiles"
 
-    # Iterate through Autopilot profiles and send them to Intune
-    foreach ($profile in $config.autopilotProfiles) {
-        $body = @{
-            displayName = $profile.name
-            description = $profile.description
-        }
-
-        # Send the Autopilot profile to Intune
-        Invoke-RestMethod -Uri $intuneApiEndpoint -Method Post -Headers (Connect-Intune) -Body ($body | ConvertTo-Json)
-        Write-Output "Autopilot Profile $($profile.name) applied."
-    }
-
-    Write-Output "Intune Autopilot Profiles applied."
+    # Apply Autopilot profile
+    Invoke-RestMethod -Uri $intuneApiEndpoint -Method Post -Headers (Connect-Intune) -Body ($config | ConvertTo-Json)
+    Write-Output "Enrollment Profile applied for $ProfileType."
 }
 
-# Apply Autopilot Profiles
-Apply-AutopilotProfiles -ConfigPath $AutopilotConfigFile
+# Apply Enrollment Profiles only if changes detected
+if ($env:GITHUB_EVENT_NAME -eq 'push') {
+    if (git diff --name-only $env:GITHUB_SHA^..$env:GITHUB_SHA -Intersect $UserDrivenConfigFile, $CompanyOwnedMacOSConfigFile, $CompanyOwnedAndroidConfigFile, $CompanyOwnedIOSConfigFile) {
+        # Apply Autopilot Profiles
+        Apply-EnrollmentProfiles -ConfigPath $UserDrivenConfigFile -ProfileType "User-Driven"
+        Apply-EnrollmentProfiles -ConfigPath $CompanyOwnedMacOSConfigFile -ProfileType "Company-Owned macOS"
+        Apply-EnrollmentProfiles -ConfigPath $CompanyOwnedAndroidConfigFile -ProfileType "Company-Owned Android"
+        Apply-EnrollmentProfiles -ConfigPath $CompanyOwnedIOSConfigFile -ProfileType "Company-Owned iOS"
+    }
+}

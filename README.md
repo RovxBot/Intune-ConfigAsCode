@@ -2,7 +2,7 @@
 
 ![Intune Logo](https://github.com/RovxBot/Intune-ConfigAsCode/blob/main/Images/_a1fb46ba-043d-484e-beb7-d8edc7036886.jpeg)
 
-Automate the configuration of device compliance policies and Windows configuration profiles in Microsoft Intune using GitHub Actions, PowerShell, and YAML configurations.
+Automate the configuration of device compliance policies and Windows configuration profiles in Microsoft Intune using GitHub Actions, PowerShell, and JSON configurations.
 
 ## Table of Contents
 
@@ -24,7 +24,9 @@ Automate the configuration of device compliance policies and Windows configurati
 
 ## 👋 Introduction
 
-This project aims to simplify the management of device compliance policies and Windows configuration profiles in Microsoft Intune using GitHub Actions. By using automation, you can ensure that your devices meet the specified compliance requirements and have the necessary configuration profiles without manual intervention.
+This project aims to simplify the management of device profiles in Microsoft Intune using GitHub Actions. By using automation, and DevOps practices.
+
+In the long term I hope I can get this project to a point that it can be used to jumpstart a fresh enviroment to the point it can start being used. Obviously there is an incredible amount of configuration that goes into most Intune enviroments, but my hope is that this repo can give organisations the boost that it needs to enter into the world of cloud management.
 
 ## 🚀 Getting Started
 
@@ -33,8 +35,10 @@ This project aims to simplify the management of device compliance policies and W
    git clone https://github.com/RovxBot/Intune-ConfigAsCode.git
    cd Intune-ConfigAsCode```
 
-### ⚙️ GitHub Actions Workflow
+2. **Secrets:**
+The majority of these profiles will require you to enter secrets of some kind. Please use Keyvault or GitHub Actions and secrets, and dont enter secrests in plain text.
 
+### ⚙️ GitHub Actions Workflow
 This project leverages GitHub Actions workflows for automated deployment. The workflow is triggered on each push to the main branch.
 
 ## 🛠️ Configuration
@@ -103,7 +107,7 @@ This project leverages GitHub Actions workflows for automated deployment. The wo
 - Password Expiration Days: 90
 
 ## 🤝 Contributing
-Contributions are welcome! Please check the Contribution Guidelines for details on how to contribute to this project.
+Contributions are welcome! I would love input on configurations that others use in their enviroments. The Idea is to get this repo to a point that can be set and deployed to a fresh enviremont and be ready to start using.
 
 ## 📄 License
 This project is licensed under the MIT License.
