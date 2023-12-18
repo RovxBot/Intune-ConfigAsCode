@@ -1,0 +1,22 @@
+{
+  "deviceCategories": [
+    {
+      "name": "Laptops",
+      "description": "Category for laptop devices",
+      "color": "Blue",
+      "displayName": "Laptops"
+    },
+    {
+      "name": "Desktops",
+      "description": "Category for desktop devices",
+      "color": "Green",
+      "displayName": "Desktops"
+    },
+    {
+      "name": "Mobile Phones",
+      "description": "Category for mobile phone devices",
+      "color": "Orange",
+      "displayName": "Mobile Phones"
+    }
+  ]
+}

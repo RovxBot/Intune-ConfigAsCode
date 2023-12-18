@@ -1,8 +1,8 @@
 param (
-    [string]$UserDrivenConfigFile = "Enrollment\UserDrivenAutopilotConfig.yml",
-    [string]$CompanyOwnedMacOSConfigFile = "Enrollment\CompanyOwnedMacOSAutopilotConfig.yml",
-    [string]$CompanyOwnedAndroidConfigFile = "Enrollment\CompanyOwnedAndroidAutopilotConfig.yml",
-    [string]$CompanyOwnedIOSConfigFile = "Enrollment\CompanyOwnedIOSAutopilotConfig.yml"
+    [string]$UserDrivenConfigFile = "Enrollment\StandardAutopilot.json",
+    [string]$CompanyOwnedMacOSConfigFile = "Enrollment\MacOSEnrollment.json",
+    [string]$CompanyOwnedAndroidConfigFile = "Enrollment\AndroidEnrollment.json",
+    [string]$CompanyOwnedIOSConfigFile = "Enrollment\IOSEnrollment.json"
 )
 
 # Function to apply Enrollment Profiles in Intune
@@ -12,8 +12,8 @@ function Apply-EnrollmentProfiles {
         [string]$ProfileType
     )
 
-    # Read YAML file
-    $config = Get-Content $ConfigPath | ConvertFrom-Yaml
+    # Read JSON file
+    $config = Get-Content $ConfigPath | ConvertFrom-Json
 
     # Define the API endpoint for Autopilot profiles in Intune
     $intuneApiEndpoint = "https://graph.microsoft.com/v1.0/deviceManagement/autopilotProfiles"
@@ -27,7 +27,7 @@ function Apply-EnrollmentProfiles {
 if ($env:GITHUB_EVENT_NAME -eq 'push') {
     if (git diff --name-only $env:GITHUB_SHA^..$env:GITHUB_SHA -Intersect $UserDrivenConfigFile, $CompanyOwnedMacOSConfigFile, $CompanyOwnedAndroidConfigFile, $CompanyOwnedIOSConfigFile) {
         # Apply Autopilot Profiles
-        Apply-EnrollmentProfiles -ConfigPath $UserDrivenConfigFile -ProfileType "User-Driven"
+        Apply-EnrollmentProfiles -ConfigPath $UserDrivenConfigFile -ProfileType "User-Driven Autopilot"
         Apply-EnrollmentProfiles -ConfigPath $CompanyOwnedMacOSConfigFile -ProfileType "Company-Owned macOS"
         Apply-EnrollmentProfiles -ConfigPath $CompanyOwnedAndroidConfigFile -ProfileType "Company-Owned Android"
         Apply-EnrollmentProfiles -ConfigPath $CompanyOwnedIOSConfigFile -ProfileType "Company-Owned iOS"

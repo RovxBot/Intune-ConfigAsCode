@@ -15,6 +15,8 @@ jobs:
 
       - name: Set up PowerShell
         uses: microsoft/setup-powershell@v1
+        with:
+          pwsh-version: '7.x'  # Replace with the desired PowerShell version
 
       - name: Determine Changed Files
         id: determine_changes
@@ -27,19 +29,17 @@ jobs:
         run: |
           .\ApplyCompliancePolicies.ps1 -ComplianceConfig "DeviceCompliance\AndroidComplianceConfig.yml"
 
-      - name: Execute PowerShell Script - Apply IOS Compliance
+      - name: Execute PowerShell Script - Apply iOS Compliance
         if: contains(steps.determine_changes.outputs.changes, 'DeviceCompliance\IOSComplianceConfig.yml')
         run: |
-          .\ApplyCompliancePolicies.ps1 -ComplianceConfig "DeviceCompliance\IOSomplianceConfig.yml"
+          .\ApplyCompliancePolicies.ps1 -ComplianceConfig "DeviceCompliance\IOSComplianceConfig.yml"
 
-      - name: Execute PowerShell Script - Apply Android Compliance
+      - name: Execute PowerShell Script - Apply macOS Compliance
         if: contains(steps.determine_changes.outputs.changes, 'DeviceCompliance\MacOSComplianceConfig.yml')
         run: |
           .\ApplyCompliancePolicies.ps1 -ComplianceConfig "DeviceCompliance\MacOSComplianceConfig.yml"
 
-      - name: Execute PowerShell Script - Apply Android Compliance
-        if: contains(steps.determine_changes.outputs.changes, 'WindowsComplianceConfig.yml')
+      - name: Execute PowerShell Script - Apply Windows Compliance
+        if: contains(steps.determine_changes.outputs.changes, 'DeviceCompliance\WindowsComplianceConfig.yml')
         run: |
-          .\ApplyCompliancePolicies.ps1 -ComplianceConfig "WindowsComplianceConfig.yml"
-
-  # Add additional jobs for other compliance policies or configurations if needed
+          .\ApplyCompliancePolicies.ps1 -ComplianceConfig "DeviceCompliance\WindowsComplianceConfig.yml"

@@ -1,8 +1,8 @@
 param (
-    [string]$AndroidConfigFile = "DeviceCompliance\AndroidComplianceConfig.yml",
-    [string]$IOSConfigFile = "DeviceCompliance\IOSComplianceConfig.yml",
-    [string]$MacOSConfigFile = "DeviceCompliance\MacOSComplianceConfig.yml",
-    [string]$WindowsConfigFile = "DeviceCompliance\WindowsComplianceConfig.yml"
+    [string]$AndroidConfigFile = "DeviceCompliance\AndroidComplianceConfig.json",
+    [string]$IOSConfigFile = "DeviceCompliance\IOSComplianceConfig.json",
+    [string]$MacOSConfigFile = "DeviceCompliance\MacOSComplianceConfig.json",
+    [string]$WindowsConfigFile = "DeviceCompliance\WindowsComplianceConfig.json"
 )
 
 # Function to apply Compliance Policies in Intune
@@ -12,8 +12,8 @@ function Apply-CompliancePolicies {
         [string]$Platform
     )
 
-    # Read YAML file
-    $config = Get-Content $ConfigPath | ConvertFrom-Yaml
+    # Read JSON file
+    $config = Get-Content $ConfigPath | ConvertFrom-Json
 
     # Define the API endpoint for compliance policies in Intune
     $intuneApiEndpoint = "https://graph.microsoft.com/v1.0/deviceManagement/managedDevice/deviceCompliancePolicies"

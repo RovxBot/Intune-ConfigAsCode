@@ -1,0 +1,25 @@
+{
+  "displayName": "OneDrive Configuration Profile",
+  "description": "Configures OneDrive settings for folder sync.",
+  "version": "1.0.0.0",
+  "applicantId": {
+    "id": "{YOUR_GUID}"
+  },
+  "uses": [
+    {
+      "id": "{YOUR_GUID}"
+    }
+  ],
+  "properties": [
+    {
+      "name": "OnPremCredentials",
+      "value": "True"
+    }
+  ],
+  "settings": [
+    {
+      "name": "FileSync-Settings",
+      "xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><UserConfig><Files><File><Name>Documents</Name><UserOverridable>True</UserOverridable></File><File><Name>Desktop</Name><UserOverridable>True</UserOverridable></File><File><Name>Pictures</Name><UserOverridable>True</UserOverridable></File></Files></UserConfig>"
+    }
+  ]
+}
