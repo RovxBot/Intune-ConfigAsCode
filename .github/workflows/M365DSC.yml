@@ -1,0 +1,40 @@
+name: Azure KeyVault Trigger
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  compile_configuration:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 'latest'
+
+      - name: Install Azure PowerShell
+        uses: azure/setup-powershell@v1
+        with:
+          azPSVersion: 'latest'
+
+      - name: Run build.ps1
+        shell: pwsh
+        working-directory: ./
+        run: |
+          # Authenticate with Azure Key Vault
+          $connection = Get-AzKeyVaultSecret -VaultName "<YourVaultName>" -Name "<YourSecretName>"
+          $secretValue = $connection.SecretValueText
+          $secretValue | Out-File -FilePath "secret.txt" -Encoding ASCII
+          # Run your build script
+          ./build.ps1
+
+      - name: Publish Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: MOFFiles
+          path: output/
